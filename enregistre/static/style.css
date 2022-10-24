@@ -1,0 +1,25 @@
+.padd {
+padding: 0 5px 0px 5px;
+}
+.compos_1{
+   display: grid;
+}
+/* .titre{
+text-align:left;
+} */
+.contente{
+    width: 100px;
+}
+.compose{
+    /* background-color: darkgreen; */
+    color: white;
+    width: 110px;
+
+}
+/* .badge{
+    text-align:center*-:; 
+} */
+.assurer{
+    background-color: dodgerblue;
+    width: 500px;
+}
