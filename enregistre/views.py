@@ -25,17 +25,22 @@ def  enregistrements(request):
     return render(request, 'enregistrement.html')
 
 def  verification(request):
-    donnee = enregistrement.objects.all()
+    # donnee = enregistrement.objects.all()
     if request.method == "POST":
         ticket = request.POST['code_ticket']
-        datas = enregistrement.objects.filter(code_ticket=ticket).values().count()
-        if datas <= 0:   
-            messages.error(request, "code incorrecte !!!")
+        # datas = enregistrement.objects.filter(code_ticket=ticket).values().count()
+        name_db = {'nom':'nom', 'prenom':'prenom', 'contact':'contact', 'code_ticket':'code_ticket'}
+        datas = enregistrement.objects.raw('SELECT * FROM enregistre_enregistrement', translations=name_db)
+        for data in datas:
+            print(f'je suis {data.nom} {data.prenom} avec un numero de {data.contact}')
             
-        else:
-            messages.success(request, "Code validé !!")
+            if data.code_ticket !=  ticket  :   
+                messages.error(request, "code incorrecte !!!")
+                
+            else:
+                messages.success(request, "Code validé !!")
     context = {
-            'ticket': donnee,
+            'ticket':  datas,
             
     }
     return render(request, 'verification.html', context)
