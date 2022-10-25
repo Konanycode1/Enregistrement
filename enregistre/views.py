@@ -41,6 +41,7 @@ def  verification(request):
                 messages.success(request, "Code validé !!")
     context = {
             'ticket':  datas,
+            'code': ticket 
             
     }
     return render(request, 'verification.html', context)
