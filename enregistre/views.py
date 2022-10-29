@@ -2,8 +2,10 @@
 from django import forms
 from django.contrib import messages
 from django.http import HttpResponse
+from django.core.mail import send_mail
 from django.shortcuts import render
 from pyexpat import model
+from django.conf import settings
 
 from .models import enregistrement
 
@@ -32,11 +34,15 @@ def  verification(request):
         name_db = {'nom':'nom', 'prenom':'prenom', 'contact':'contact', 'code_ticket':'code_ticket'}
         datas = enregistrement.objects.raw('SELECT * FROM enregistre_enregistrement', translations=name_db)
         for data in datas:
-            print(f'je suis {data.nom} {data.prenom} avec un numero de {data.contact}')
-            
             if data.code_ticket !=  ticket  :   
                 messages.error(request, "code incorrecte !!!")
-                
+
+                recipient = ['abrahamkonany@gmail.com']
+                subject = 'Verification de code'
+                message_env = 'votre code est valide'
+                sender = settings.EMAIL_HOST_USER
+
+                send_mail(subject, message_env, sender, recipient)
             else:
                 messages.success(request, "Code validé !!")
     context = {
@@ -45,3 +51,6 @@ def  verification(request):
             
     }
     return render(request, 'verification.html', context)
+
+def send(request):
+    return render(request, 'send.html')

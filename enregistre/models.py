@@ -7,3 +7,4 @@ class enregistrement(models.Model):
     prenom = models.CharField(max_length=50)
     contact = models.CharField(max_length=50)
     code_ticket = models.CharField(max_length=10)
+

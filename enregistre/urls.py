@@ -7,5 +7,6 @@ urlpatterns = [
    path('enregistrements/', views.enregistrements, name='enregistrements'),
    
    
+   
     
 ]
